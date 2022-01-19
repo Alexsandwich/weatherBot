@@ -37,7 +37,7 @@ client.once('ready', () => {
 	// 'metric'  'internal'  'imperial'
  	weather.setUnits('metric');
 
-	// check http://openweathermap.org/appid#get for get the APPID
+	// check http://openweathermap.org/appid#get for get the idAPP
  	weather.setAPPID(idAPP);
 
 
@@ -46,6 +46,7 @@ client.on('interactionCreate', async interaction => {
 
 	const { commandName, options } = interaction;
 
+	//Premade command specific to Toronto
 	if (commandName === 'toronto') {
 
 		weather.setCity('Toronto');
@@ -57,6 +58,7 @@ client.on('interactionCreate', async interaction => {
 
 	}
 
+	//Premade command specific to Montreal
 	if (commandName === 'montreal') {
 		weather.setCity('Montreal');
 
@@ -115,5 +117,5 @@ client.on('interactionCreate', async interaction => {
 	}
 });
 
-// Login to Discord with your client's token
+//Replace "token" with your discord bot token
 client.login(token);
