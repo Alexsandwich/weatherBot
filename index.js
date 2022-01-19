@@ -1,6 +1,7 @@
 // Require the necessary discord.js classes
 const { Client, Intents, MessageEmbed } = require('discord.js');
-const { token } = require('./config.json');
+const { token, idAPP } = require('./config.json')
+
 
 const fetch = require('node-fetch');
 // Create a new client instance
@@ -28,19 +29,17 @@ client.once('ready', () => {
  	weather.setUnits('metric');
 
 	// check http://openweathermap.org/appid#get for get the APPID
- 	weather.setAPPID('');
-
-
+ 	weather.setAPPID(idAPP);
 
 
 client.on('interactionCreate', async interaction => {
 	if (!interaction.isCommand()) return;
 
-	const { commandName } = interaction;
+	const { commandName, options } = interaction;
 
 	if (commandName === 'toronto') {
-		weather.setCity('Toronto');
 
+		weather.setCity('Toronto');
 		weather.getTemperature(function(err, temp){
 			console.log(temp);
 			interaction.reply('The Current temperature in Toronto is: ' + temp + 'C');
@@ -55,6 +54,54 @@ client.on('interactionCreate', async interaction => {
 		weather.getTemperature(function(err, temp){
 			console.log(temp);
 			interaction.reply('The Current temperature in Montreal is: ' + temp + 'C');
+		});
+	}
+
+	//Weather Command. Gets user input, pharses it through the weathermap API, returns temperature value
+	if (commandName === 'weather') {
+		const string = options.getString('city');
+
+		await interaction.deferReply({
+		  ephemeral: true,
+		})
+
+		//Waits 1 second befor running process
+		await new Promise((resolve) => setTimeout(resolve, 1000))
+
+		weather.setCity(string)
+
+		weather.getTemperature(function(err, temp){
+			console.log(temp)
+
+			if (temp > 20) {
+				interaction.editReply({
+					content: 'Holy hell its warm in ' + string + ' is: ' + temp + 'C',
+				})
+			}
+
+			if (temp > 10 && temp < 20) {
+				interaction.editReply({
+					content: 'Its warm in ' + string + ' is: ' + temp + 'C',
+				})
+			}
+
+			if (temp > 0 && temp < 10) {
+				interaction.editReply({
+					content: 'Its cold in ' + string + ' is: ' + temp + 'C',
+				})
+			}
+
+			if (temp < 0 && temp > -10) {
+				interaction.editReply({
+					content: 'Its freezing in ' + string + '. Its ' + temp + 'C',
+				})
+			}
+
+			if (temp < -10) {
+				interaction.editReply({
+					content: 'Jesus fuck its cold in ' + string + '. Its ' + temp + 'C',
+				})
+			}
 		});
 	}
 });

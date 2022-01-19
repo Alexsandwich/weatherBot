@@ -6,9 +6,10 @@ const { clientId, guildId, token } = require('./config.json');
 const commands = [
 	new SlashCommandBuilder().setName('toronto').setDescription('Toronto Weather'),
 	new SlashCommandBuilder().setName('montreal').setDescription('Montreal Weather'),
-	new SlashCommandBuilder().setName('user').setDescription('Replies with user info!'),
+	new SlashCommandBuilder().setName('weather').setDescription('Replies with user info!').addStringOption(option => option.setName('city').setDescription('Enter a string')),
 ]
 	.map(command => command.toJSON());
+
 
 const rest = new REST({ version: '9' }).setToken(token);
 
