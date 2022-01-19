@@ -6,7 +6,7 @@ const { clientId, guildId, token } = require("./config.json");
 const commands = [
 	new SlashCommandBuilder().setName("toronto").setDescription("Toronto Weather"),
 	new SlashCommandBuilder().setName("montreal").setDescription("Montreal Weather"),
-	new SlashCommandBuilder().setName("weather").setDescription("Replies with user info!").addStringOption(option => option.setName("city").setDescription("Enter a string")),
+	new SlashCommandBuilder().setName("weather").setDescription("Replies with user info!").addStringOption((option) => option.setName("city").setDescription("Enter a string")),
 ]
 	.map((command) => command.toJSON());
 
