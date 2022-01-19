@@ -14,4 +14,3 @@ A discord weather bot that has a command to check the weather based on user inpu
 # Todo
 * Create automated messages 
 *
-*
