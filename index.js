@@ -10,6 +10,15 @@ const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
 // When the client is ready, run this code (only once)
 client.once('ready', () => {
 	console.log('Ready!');
+    client.user.setPresence({
+        activities: [{ 
+          name: "The Weather",
+          type: "STREAMING", 
+		  url: "https://www.twitch.tv/alexthesandwich_"
+        }],
+        status: "idle"
+    })
+
 });
 
 	var weather = require('openweather-apis');
