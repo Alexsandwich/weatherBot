@@ -1,0 +1,45 @@
+// Require the necessary discord.js classes
+const { Client, Intents, MessageEmbed } = require('discord.js');
+const { token } = require('./config.json');
+
+const fetch = require('node-fetch');
+// Create a new client instance
+const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
+
+// When the client is ready, run this code (only once)
+client.once('ready', () => {
+	console.log('Ready!');
+});
+
+	var weather = require('openweather-apis');
+
+	weather.setLang('en');
+	// English - en, Russian - ru, Italian - it, Spanish - es (or sp),
+	// Ukrainian - uk (or ua), German - de, Portuguese - pt,Romanian - ro,
+	// Polish - pl, Finnish - fi, Dutch - nl, French - fr, Bulgarian - bg,
+	// Swedish - sv (or se), Chinese Tra - zh_tw, Chinese Sim - zh (or zh_cn),
+	// Turkish - tr, Croatian - hr, Catalan - ca
+
+
+	// set city by name
+	weather.setCity('Toronto');
+
+	// 'metric'  'internal'  'imperial'
+ 	weather.setUnits('metric');
+
+	// check http://openweathermap.org/appid#get for get the APPID
+ 	weather.setAPPID('b3ff4fbe0979d2547348c6c8aff7f1d4');
+
+client.on('interactionCreate', async interaction => {
+	if (!interaction.isCommand()) return;
+
+	const { commandName } = interaction;
+
+	if (commandName === 'ping') {
+		await interaction.deferReply();
+		const { file } = await fetch('https://api.openweathermap.org/data/2
+	}
+});
+
+// Login to Discord with your client's token
+client.login(token);
