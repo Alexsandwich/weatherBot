@@ -1,15 +1,15 @@
 // Require the necessary discord.js classes
-const { Client, Intents, MessageEmbed } = require('discord.js');
-const { token, idAPP } = require('./config.json')
+const { Client, Intents, MessageEmbed } = require("discord.js");
+const { token, idAPP } = require("./config.json")
 
 
-const fetch = require('node-fetch');
+const fetch = require("node-fetch");
 // Create a new client instance
 const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
 
 // When the client is ready, run this code (only once)
-client.once('ready', () => {
-	console.log('Ready!');
+client.once("ready", () => {
+	console.log("Ready!");
 	client.user.setPresence({
 		activities: [{
 			name: "The Weather",
@@ -17,13 +17,13 @@ client.once('ready', () => {
 			url: "https://www.twitch.tv/alexthesandwich_"
 		}],
 		status: "idle"
-	})
+	});
 
 });
 
-var weather = require('openweather-apis');
+var weather = require("openweather-apis");
 
-weather.setLang('en');
+weather.setLang("en");
 // English - en, Russian - ru, Italian - it, Spanish - es (or sp),
 // Ukrainian - uk (or ua), German - de, Portuguese - pt,Romanian - ro,
 // Polish - pl, Finnish - fi, Dutch - nl, French - fr, Bulgarian - bg,
@@ -35,7 +35,7 @@ weather.setLang('en');
 //weather.setCity('Toronto');
 
 // 'metric'  'internal'  'imperial'
-weather.setUnits('metric');
+weather.setUnits("metric");
 
 // check http://openweathermap.org/appid#get for get the idAPP
 weather.setAPPID(idAPP);
@@ -47,37 +47,37 @@ client.on('interactionCreate', async interaction => {
 	const { commandName, options } = interaction;
 
 	//Premade command specific to Toronto
-	if (commandName === 'toronto') {
+	if (commandName === "toronto") {
 
-		weather.setCity('Toronto');
+		weather.setCity("Toronto");
 		weather.getTemperature(function (err, temp) {
 			console.log(temp);
-			interaction.reply('The Current temperature in Toronto is: ' + temp + 'C');
+			interaction.reply("The Current temperature in Toronto is: " + temp + "C");
 		});
 
 
 	}
 
 	//Premade command specific to Montreal
-	if (commandName === 'montreal') {
-		weather.setCity('Montreal');
+	if (commandName === "montreal") {
+		weather.setCity("Montreal");
 
 		weather.getTemperature(function (err, temp) {
 			console.log(temp);
-			interaction.reply('The Current temperature in Montreal is: ' + temp + 'C');
+			interaction.reply("The Current temperature in Montreal is: " + temp + "C");
 		});
 	}
 
 	//Weather Command. Gets user input, pharses it through the weathermap API, returns temperature value
-	if (commandName === 'weather') {
-		const string = options.getString('city');
+	if (commandName === "weather") {
+		const string = options.getString("city");
 
 		await interaction.deferReply({
 			ephemeral: true,
 		})
 
 		//Waits 1 second befor running process
-		await new Promise((resolve) => setTimeout(resolve, 1000))
+		await new Promise((resolve) => setTimeout(resolve, 1000));
 
 		weather.setCity(string)
 
@@ -87,12 +87,12 @@ client.on('interactionCreate', async interaction => {
 			const json = JSON.stringify(smart, null, 2);
 
 			interaction.editReply({
-				content: '>**Location:** ' + string + "\n" +
-				'>**Weather:** '+ smart.temp + 'C\n' +
-				'>**Humidity:** '+ smart.humidity + '%\n' +
-				'>**Pressure:** '+ smart.pressure + '\n' +
-				'>**Description:** '+ smart.description + '\n' +
-				'>**Rain:** ' + smart.rain,
+				content: ">**Location:** " + string + "\n" +
+				">**Weather:** "+ smart.temp + "C\n" +
+				">**Humidity:** "+ smart.humidity + "%\n" +
+				">**Pressure:** "+ smart.pressure + "\n" +
+				">**Description:** "+ smart.description + "\n" +
+				">**Rain:** " + smart.rain,
 			})
 		});
 	}
