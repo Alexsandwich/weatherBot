@@ -32,5 +32,5 @@ The steps for setting up this discord bot is relativly simple.
 ## Todo
 	* Create automated messages 
 	* Create embeded messages for full 3 day forecast
----
+
 

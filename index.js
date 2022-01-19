@@ -35,11 +35,11 @@ weather.setUnits("metric");
 weather.setAPPID(idAPP);
 
 
-client.on("interactionCreate", async interaction => {
+client.on("interactionCreate", async (interaction) => {
 	if (!interaction.isCommand()) {
 		return;
 	}
-	const { commandName, options } = interaction;
+	//const { commandName, options } = interaction;
 
 	//Premade command specific to Toronto
 	if (commandName === "toronto") {
@@ -123,7 +123,7 @@ client.on("interactionCreate", async interaction => {
 		});
 
 		//Waits 1 second befor running process
-		await new Promise((resolve) => setTimeout(resolve, 1000))
+		await new Promise((resolve) => setTimeout(resolve, 1000));
 
 		weather.setCity(string);
 
