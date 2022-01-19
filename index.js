@@ -10,35 +10,35 @@ const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
 // When the client is ready, run this code (only once)
 client.once('ready', () => {
 	console.log('Ready!');
-    client.user.setPresence({
-        activities: [{ 
-          name: "The Weather",
-          type: "STREAMING", 
-		  url: "https://www.twitch.tv/alexthesandwich_"
-        }],
-        status: "idle"
-    })
+	client.user.setPresence({
+		activities: [{
+			name: "The Weather",
+			type: "STREAMING",
+			url: "https://www.twitch.tv/alexthesandwich_"
+		}],
+		status: "idle"
+	})
 
 });
 
-	var weather = require('openweather-apis');
+var weather = require('openweather-apis');
 
-	weather.setLang('en');
-	// English - en, Russian - ru, Italian - it, Spanish - es (or sp),
-	// Ukrainian - uk (or ua), German - de, Portuguese - pt,Romanian - ro,
-	// Polish - pl, Finnish - fi, Dutch - nl, French - fr, Bulgarian - bg,
-	// Swedish - sv (or se), Chinese Tra - zh_tw, Chinese Sim - zh (or zh_cn),
-	// Turkish - tr, Croatian - hr, Catalan - ca
+weather.setLang('en');
+// English - en, Russian - ru, Italian - it, Spanish - es (or sp),
+// Ukrainian - uk (or ua), German - de, Portuguese - pt,Romanian - ro,
+// Polish - pl, Finnish - fi, Dutch - nl, French - fr, Bulgarian - bg,
+// Swedish - sv (or se), Chinese Tra - zh_tw, Chinese Sim - zh (or zh_cn),
+// Turkish - tr, Croatian - hr, Catalan - ca
 
 
-	// set city by name
-	//weather.setCity('Toronto');
+// set city by name
+//weather.setCity('Toronto');
 
-	// 'metric'  'internal'  'imperial'
- 	weather.setUnits('metric');
+// 'metric'  'internal'  'imperial'
+weather.setUnits('metric');
 
-	// check http://openweathermap.org/appid#get for get the idAPP
- 	weather.setAPPID(idAPP);
+// check http://openweathermap.org/appid#get for get the idAPP
+weather.setAPPID(idAPP);
 
 
 client.on('interactionCreate', async interaction => {
@@ -50,7 +50,7 @@ client.on('interactionCreate', async interaction => {
 	if (commandName === 'toronto') {
 
 		weather.setCity('Toronto');
-		weather.getTemperature(function(err, temp){
+		weather.getTemperature(function (err, temp) {
 			console.log(temp);
 			interaction.reply('The Current temperature in Toronto is: ' + temp + 'C');
 		});
@@ -62,7 +62,7 @@ client.on('interactionCreate', async interaction => {
 	if (commandName === 'montreal') {
 		weather.setCity('Montreal');
 
-		weather.getTemperature(function(err, temp){
+		weather.getTemperature(function (err, temp) {
 			console.log(temp);
 			interaction.reply('The Current temperature in Montreal is: ' + temp + 'C');
 		});
@@ -73,7 +73,7 @@ client.on('interactionCreate', async interaction => {
 		const string = options.getString('city');
 
 		await interaction.deferReply({
-		  ephemeral: true,
+			ephemeral: true,
 		})
 
 		//Waits 1 second befor running process
@@ -81,38 +81,19 @@ client.on('interactionCreate', async interaction => {
 
 		weather.setCity(string)
 
-		weather.getTemperature(function(err, temp){
-			console.log(temp)
+		weather.getSmartJSON(function (err, smart) {
+			console.log(smart);
 
-			if (temp > 20) {
-				interaction.editReply({
-					content: 'Holy hell its warm in ' + string + ' is: ' + temp + 'C',
-				})
-			}
+			const json = JSON.stringify(smart, null, 2);
 
-			if (temp > 10 && temp < 20) {
-				interaction.editReply({
-					content: 'Its warm in ' + string + ' is: ' + temp + 'C',
-				})
-			}
-
-			if (temp > 0 && temp < 10) {
-				interaction.editReply({
-					content: 'Its cold in ' + string + ' is: ' + temp + 'C',
-				})
-			}
-
-			if (temp < 0 && temp > -10) {
-				interaction.editReply({
-					content: 'Its freezing in ' + string + '. Its ' + temp + 'C',
-				})
-			}
-
-			if (temp < -10) {
-				interaction.editReply({
-					content: 'Jesus fuck its cold in ' + string + '. Its ' + temp + 'C',
-				})
-			}
+			interaction.editReply({
+				content: '>**Location:** ' + string + "\n" +
+				'>**Weather:** '+ smart.temp + 'C\n' +
+				'>**Humidity:** '+ smart.humidity + '%\n' +
+				'>**Pressure:** '+ smart.pressure + '\n' +
+				'>**Description:** '+ smart.description + '\n' +
+				'>**Rain:** ' + smart.rain,
+			})
 		});
 	}
 });
