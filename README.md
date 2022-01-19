@@ -1,6 +1,6 @@
 # Weather Bot
 
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/8f9fd54164514dc786bd6672c3dd4353)](https://app.codacy.com/gh/Alexsandwich/weatherBot?utm_source=github.com&utm_medium=referral&utm_content=Alexsandwich/weatherBot&utm_campaign=Badge_Grade_Settings)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/37c487756e434b2c958d0bb5c6b83d8a)](https://www.codacy.com/gh/Alexsandwich/weatherBot/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Alexsandwich/weatherBot&amp;utm_campaign=Badge_Grade)
 
 A discord weather bot that has a command to check the weather based on user input. Weather data is collected using the api from openweathermap. 
 
