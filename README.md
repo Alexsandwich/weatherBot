@@ -11,6 +11,11 @@ A discord weather bot that has a command to check the weather based on user inpu
 
 ---
 
+## Features
+* Lightweight and efficient
+* Fully Customizable 
+* Integrated Discord Status
+
 ## Todo
 * Create automated messages 
-*
+* Create embeded messages for full 3 day forecast
