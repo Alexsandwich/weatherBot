@@ -1,8 +1,11 @@
+//Important libs
 const { SlashCommandBuilder } = require("@discordjs/builders");
 const { REST } = require("@discordjs/rest");
 const { Routes } = require("discord-api-types/v9");
 const { clientId, guildId, token } = require("./config.json");
 
+
+//Command Builder. Will intergrate with discord to allow for bot / command. 
 const commands = [
 	new SlashCommandBuilder().setName("toronto").setDescription("Toronto Weather"),
 	new SlashCommandBuilder().setName("montreal").setDescription("Montreal Weather"),
