@@ -39,7 +39,14 @@ client.on("interactionCreate", async (interaction) => {
 	if (!interaction.isCommand()) {
 		return;
 	}
-	//const { commandName, options } = interaction;
+	const { commandName, options } = interaction;
+
+	
+	//Premade help command
+	if (commandName === "help") {
+		interaction.reply("/weather: A command to check the weather of any city you desire." + "\n");
+	}
+
 
 	//Premade command specific to Toronto
 	if (commandName === "toronto") {
