@@ -32,5 +32,11 @@ The steps for setting up this discord bot is relativly simple.
 ## Todo
 	* Create automated messages 
 	* Create embeded messages for full 3 day forecast
+---
 
+
+## Copyright / Using Rights
+If you plan to use this code in one of your own projects, I simply request that you ask for permission first. 
+
+You can email me at "alexandermilanovich63@gmail.com" for any inquiries 
 
